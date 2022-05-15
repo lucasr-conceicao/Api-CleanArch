@@ -1,4 +1,4 @@
-package br.com.ApiCleanArch.usecase.port;
+package br.com.ApiCleanArch.usecase.documento.port;
 
 public interface IConteudoDocumento {
 

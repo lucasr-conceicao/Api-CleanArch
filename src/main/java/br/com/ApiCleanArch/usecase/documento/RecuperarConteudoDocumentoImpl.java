@@ -1,8 +1,8 @@
-package br.com.ApiCleanArch.usecase;
+package br.com.ApiCleanArch.usecase.documento;
 
 import br.com.ApiCleanArch.usecase.exception.DocumentoConteudoEmptyException;
-import br.com.ApiCleanArch.usecase.port.ConteudoDocumentoResponse;
-import br.com.ApiCleanArch.usecase.port.IConteudoDocumento;
+import br.com.ApiCleanArch.usecase.documento.port.ConteudoDocumentoResponse;
+import br.com.ApiCleanArch.usecase.documento.port.IConteudoDocumento;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

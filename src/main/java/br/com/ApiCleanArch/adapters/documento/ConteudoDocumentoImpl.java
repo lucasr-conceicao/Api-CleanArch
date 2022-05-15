@@ -2,8 +2,8 @@ package br.com.ApiCleanArch.adapters.documento;
 
 import br.com.ApiCleanArch.adapters.documento.entities.DocumentoConteudoResponse;
 import br.com.ApiCleanArch.usecase.exception.DocumentoConteudoEmptyException;
-import br.com.ApiCleanArch.usecase.port.ConteudoDocumentoResponse;
-import br.com.ApiCleanArch.usecase.port.IConteudoDocumento;
+import br.com.ApiCleanArch.usecase.documento.port.ConteudoDocumentoResponse;
+import br.com.ApiCleanArch.usecase.documento.port.IConteudoDocumento;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 

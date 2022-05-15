@@ -1,7 +1,7 @@
 package br.com.ApiCleanArch.adapters.rest;
 
-import br.com.ApiCleanArch.usecase.IRecuperarConteudoDocumento;
-import br.com.ApiCleanArch.usecase.RecuperarConteudoDocumentoResponse;
+import br.com.ApiCleanArch.usecase.documento.IRecuperarConteudoDocumento;
+import br.com.ApiCleanArch.usecase.documento.RecuperarConteudoDocumentoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class ConteudoDocumentoController {
     private final IRecuperarConteudoDocumento recuperarConteudoDocumento;
 
     @GetMapping()
-    public ResponseEntity<RecuperarConteudoDocumentoResponse> getContent(){
+    public ResponseEntity<RecuperarConteudoDocumentoResponse> getConteudoDocumento(){
         var conteudoDocumento
                 = recuperarConteudoDocumento.getConteudoDocumento();
         return ResponseEntity.status(HttpStatus.OK).body(conteudoDocumento);

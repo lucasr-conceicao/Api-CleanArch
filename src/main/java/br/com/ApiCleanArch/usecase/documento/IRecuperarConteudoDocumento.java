@@ -1,4 +1,4 @@
-package br.com.ApiCleanArch.usecase;
+package br.com.ApiCleanArch.usecase.documento;
 
 public interface IRecuperarConteudoDocumento {
 
