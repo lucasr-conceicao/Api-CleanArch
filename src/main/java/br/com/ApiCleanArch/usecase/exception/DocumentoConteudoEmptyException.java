@@ -1,4 +1,4 @@
-package br.com.ApiCleanArch.adapters.documento.exception;
+package br.com.ApiCleanArch.usecase.exception;
 
 public class DocumentoConteudoEmptyException extends RuntimeException {
     public DocumentoConteudoEmptyException(String msg) {

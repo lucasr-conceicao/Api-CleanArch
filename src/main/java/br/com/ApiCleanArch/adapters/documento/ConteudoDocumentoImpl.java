@@ -1,7 +1,7 @@
 package br.com.ApiCleanArch.adapters.documento;
 
 import br.com.ApiCleanArch.adapters.documento.entities.DocumentoConteudoResponse;
-import br.com.ApiCleanArch.adapters.documento.exception.DocumentoConteudoEmptyException;
+import br.com.ApiCleanArch.usecase.exception.DocumentoConteudoEmptyException;
 import br.com.ApiCleanArch.usecase.port.ConteudoDocumentoResponse;
 import br.com.ApiCleanArch.usecase.port.IConteudoDocumento;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Service
 public class ConteudoDocumentoImpl implements IConteudoDocumento {
 
-    private static final String LIST_EMPTY = "A lista não contém conteúdo";
-
-    WebClient webClient = WebClient.create("https://run.mocky.io/v3/5b8eef20-c704-4424-ad79-379c8b548cd3");
+    WebClient webClient = WebClient.create("https://run.mocky.io/v3/aec726a6-7dd1-4637-ab1f-64bcb9e2a5ad");
 
     @Override
     public ConteudoDocumentoResponse getConteudo() {
@@ -36,6 +34,7 @@ public class ConteudoDocumentoImpl implements IConteudoDocumento {
         return contentResponse;
     }
 
+    /** Todo: Ajustar exception */
     private ConteudoDocumentoResponse convertResponse(DocumentoConteudoResponse convert) {
         return ConteudoDocumentoResponse
                 .builder()
@@ -44,7 +43,7 @@ public class ConteudoDocumentoImpl implements IConteudoDocumento {
                 .conteudo(
                         Optional.ofNullable(convert.getData().getDocumentos())
                                 .filter(list -> !list.isEmpty())
-                                .orElseThrow(() -> new DocumentoConteudoEmptyException(LIST_EMPTY))
+                                .orElseThrow(() -> new DocumentoConteudoEmptyException("Exception caso venha NULL"))
                                 .stream()
                                 .map(conteudo -> ConteudoDocumentoResponse.ConteudoDocumentoListResponse
                                         .builder()

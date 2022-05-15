@@ -1,6 +1,6 @@
 package br.com.ApiCleanArch.usecase;
 
-import br.com.ApiCleanArch.adapters.documento.exception.DocumentoConteudoEmptyException;
+import br.com.ApiCleanArch.usecase.exception.DocumentoConteudoEmptyException;
 import br.com.ApiCleanArch.usecase.port.ConteudoDocumentoResponse;
 import br.com.ApiCleanArch.usecase.port.IConteudoDocumento;
 import lombok.RequiredArgsConstructor;
