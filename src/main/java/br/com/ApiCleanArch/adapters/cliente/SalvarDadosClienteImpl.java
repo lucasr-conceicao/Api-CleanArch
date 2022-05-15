@@ -5,6 +5,7 @@ import br.com.ApiCleanArch.adapters.repositories.ClienteRepository;
 import br.com.ApiCleanArch.usecase.cliente.port.DadosClienteResponse;
 import br.com.ApiCleanArch.usecase.cliente.port.ISalvarDadosCliente;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,17 @@ public class SalvarDadosClienteImpl implements ISalvarDadosCliente {
 
     @Override
     public void salvarDadosCliente(DadosClienteResponse dadosCliente) {
-        var model = new TbClienteModel();
-        BeanUtils.copyProperties(dadosCliente, model);
-        model.setNome(dadosCliente.getData().getNome());
-        model.setCpf(dadosCliente.getData().getCpf());
-        model.setDataNascimento(dadosCliente.getData().getDataNascimento());
-        model.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
-        repository.save(model);
+
+        if (repository.existsByCpf(dadosCliente.getData().getCpf())) {
+
+        } else {
+            var model = new TbClienteModel();
+            BeanUtils.copyProperties(dadosCliente, model);
+            model.setNome(dadosCliente.getData().getNome());
+            model.setCpf(dadosCliente.getData().getCpf());
+            model.setDataNascimento(dadosCliente.getData().getDataNascimento());
+            model.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
+            repository.save(model);
+        }
     }
 }

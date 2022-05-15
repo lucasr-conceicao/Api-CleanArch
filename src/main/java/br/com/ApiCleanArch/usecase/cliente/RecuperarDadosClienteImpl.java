@@ -17,7 +17,6 @@ public class RecuperarDadosClienteImpl implements IRecuperarDadosCliente{
     public RecuperarDadosClienteResponse getDadosCliente() {
         var dadosClienteResponse = dadosCliente.getDadosCliente();
         var response = convertResponse(dadosClienteResponse);
-        /** Todo: Salvar dados do cliente do banco de dados Postgres */
         salvarDadosCliente.salvarDadosCliente(dadosClienteResponse);
         return response;
     }
