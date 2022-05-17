@@ -27,5 +27,7 @@ public class RecuperarDadosClienteResponse {
         private String dataNascimento;
         @JsonProperty("cpf")
         private String cpf;
+        @JsonProperty("orgao_emissor")
+        private String orgaoEmissor;
     }
 }

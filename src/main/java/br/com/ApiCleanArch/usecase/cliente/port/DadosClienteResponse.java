@@ -22,5 +22,6 @@ public class DadosClienteResponse {
         private String nome;
         private String dataNascimento;
         private String cpf;
+        private String orgaoEmissor;
     }
 }

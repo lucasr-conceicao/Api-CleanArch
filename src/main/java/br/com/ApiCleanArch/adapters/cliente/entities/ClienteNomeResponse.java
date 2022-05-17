@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClienteNomeResponse {
 
-    @JsonProperty("nome_cliente")
-    private String nomeCliente;
-    @JsonProperty("nome_cliente_documento")
-    private String nomeClienteDocumento;
+    @JsonProperty("nome")
+    private String nome;
 }

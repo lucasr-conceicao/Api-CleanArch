@@ -14,6 +14,10 @@ public class ClienteCpfResponse {
 
     @JsonProperty("cpf_cliente")
     private String cpf;
-    @JsonProperty("ano_atualizacao")
-    private String anoAtualizacao;
+
+    @JsonProperty("orgao_emissor")
+    private String orgaoEmissor;
+
+    @JsonProperty("via")
+    private int viaEmissoCpf;
 }

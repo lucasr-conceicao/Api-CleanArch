@@ -29,6 +29,7 @@ public class RecuperarDadosClienteImpl implements IRecuperarDadosCliente{
                         .nome(convert.getData().getNome())
                         .dataNascimento(convert.getData().getDataNascimento())
                         .cpf(convert.getData().getCpf())
+                        .orgaoEmissor(convert.getData().getOrgaoEmissor())
                         .build())
                 .build();
     }

@@ -22,12 +22,16 @@ public class SalvarDadosClienteImpl implements ISalvarDadosCliente {
         if (repository.existsByCpf(dadosCliente.getData().getCpf())) {
             return false;
         } else {
-            var model = new TbClienteModel();
+
+            var model = TbClienteModel
+                    .builder()
+                    .cpf(dadosCliente.getData().getCpf())
+                    .orgaoEmissor(dadosCliente.getData().getOrgaoEmissor())
+                    .nome(dadosCliente.getData().getNome())
+                    .dataNascimento(dadosCliente.getData().getDataNascimento())
+                    .creationDate(LocalDateTime.now(ZoneId.of("UTC")))
+                    .build();
             BeanUtils.copyProperties(dadosCliente, model);
-            model.setNome(dadosCliente.getData().getNome());
-            model.setCpf(dadosCliente.getData().getCpf());
-            model.setDataNascimento(dadosCliente.getData().getDataNascimento());
-            model.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
             repository.save(model);
             return true;
         }

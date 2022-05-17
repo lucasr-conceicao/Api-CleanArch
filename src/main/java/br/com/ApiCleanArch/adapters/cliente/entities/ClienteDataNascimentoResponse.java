@@ -12,6 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClienteDataNascimentoResponse {
 
-    @JsonProperty("data_nascimento_cliente")
+    @JsonProperty("data_nascimento")
     private String dataNascimento;
+
+    @JsonProperty("ano_nascimento")
+    private String anoNascimento;
+
+    @JsonProperty("mes_nascimento")
+    private String mesNascimento;
+
+    @JsonProperty("dia_nascimento")
+    private String diaNascimento;
 }
