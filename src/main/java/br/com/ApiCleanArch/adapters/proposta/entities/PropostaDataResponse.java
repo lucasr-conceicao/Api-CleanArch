@@ -24,7 +24,7 @@ public class PropostaDataResponse {
     private double taxaMes;
 
     @JsonProperty("valor_contratado")
-    private double valorContratado;
+    private double valorContrato;
 
     @JsonProperty("contratos")
     private List<PropostaContratosResponse> contratos;
