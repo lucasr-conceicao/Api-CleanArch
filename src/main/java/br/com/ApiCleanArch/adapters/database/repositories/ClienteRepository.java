@@ -1,6 +1,6 @@
-package br.com.ApiCleanArch.adapters.repositories;
+package br.com.ApiCleanArch.adapters.database.repositories;
 
-import br.com.ApiCleanArch.adapters.models.TbClienteModel;
+import br.com.ApiCleanArch.adapters.database.models.TbClienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClienteRepository extends JpaRepository<TbClienteModel, String> {

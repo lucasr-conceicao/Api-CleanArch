@@ -1,7 +1,7 @@
-package br.com.ApiCleanArch.adapters.cliente;
+package br.com.ApiCleanArch.adapters.database;
 
-import br.com.ApiCleanArch.adapters.models.TbClienteModel;
-import br.com.ApiCleanArch.adapters.repositories.ClienteRepository;
+import br.com.ApiCleanArch.adapters.database.models.TbClienteModel;
+import br.com.ApiCleanArch.adapters.database.repositories.ClienteRepository;
 import br.com.ApiCleanArch.usecase.cliente.port.DadosClienteResponse;
 import br.com.ApiCleanArch.usecase.cliente.port.ISalvarDadosCliente;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.time.ZoneId;
 
 @Service
 @RequiredArgsConstructor
-public class SalvarDadosClienteImpl implements ISalvarDadosCliente {
+public class DadosClienteDatabaseImpl implements ISalvarDadosCliente {
 
     private final ClienteRepository repository;
 

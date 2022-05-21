@@ -1,4 +1,4 @@
-package br.com.ApiCleanArch.adapters.models;
+package br.com.ApiCleanArch.adapters.database.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
