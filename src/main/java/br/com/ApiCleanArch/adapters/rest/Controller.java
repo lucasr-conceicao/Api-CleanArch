@@ -25,21 +25,21 @@ public class Controller {
 
     @GetMapping("/conteudo-documento")
     public ResponseEntity<RecuperarConteudoDocumentoResponse> getConteudoDocumento(
-            @RequestHeader(name = "correlationID") String correlationID
-    ){
-        var conteudoDocumento
-                = recuperarConteudoDocumento.getConteudoDocumento();
+            @RequestHeader(name = "correlationID") String correlationID) {
+        var conteudoDocumento = recuperarConteudoDocumento.getConteudoDocumento();
         return ResponseEntity.status(HttpStatus.OK).body(conteudoDocumento);
     }
 
     @GetMapping("/dados-cliente")
-    public ResponseEntity<RecuperarDadosClienteResponse> getDadosCliente(){
+    public ResponseEntity<RecuperarDadosClienteResponse> getDadosCliente(
+            @RequestHeader(name = "correlationID") String correlationID) {
         var dadosCliente = recuperarDadosCliente.getDadosCliente();
         return ResponseEntity.status(HttpStatus.OK).body(dadosCliente);
     }
 
     @GetMapping("/dados-proposta")
-    public ResponseEntity<RecuperarDadosPropostaResponse> getDadosProposta(){
+    public ResponseEntity<RecuperarDadosPropostaResponse> getDadosProposta(
+            @RequestHeader(name = "correlationID") String correlationID) {
         var dadosProposta = recuperarDadosProposta.getDadosProposta();
         return ResponseEntity.status(HttpStatus.OK).body(dadosProposta);
     }
