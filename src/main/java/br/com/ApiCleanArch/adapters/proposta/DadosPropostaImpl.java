@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,47 +25,44 @@ public class DadosPropostaImpl implements IDadosProposta {
     }
 
     private PropostaDadosResponse getDados() {
-        var dataResponse = webClient
+        var response = webClient
                 .get()
                 .accept(MediaType.ALL)
                 .retrieve()
                 .bodyToMono(PropostaDadosResponse.class)
                 .block();
-        return dataResponse;
+        return response;
     }
 
-    // Todo: Criar as exceptions corretas
     private DadosPropostaResponse convertResponse(PropostaDadosResponse response) {
+        var conteudoContrato = Optional.ofNullable(response.getData().getContratos())
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() -> new DocumentoConteudoEmptyException(""));
         return DadosPropostaResponse
                 .builder()
                 .numeroProposta(response.getData().getNumeroProposta())
                 .valorContrato(response.getData().getValorContrato())
                 .taxaMes(response.getData().getTaxaMes())
                 .valorParcela(response.getData().getValorParcela())
-                .contratos(
-                        Optional.ofNullable(response.getData().getContratos())
-                                .filter(list -> !list.isEmpty())
-                                .orElseThrow(() -> new DocumentoConteudoEmptyException(""))
-                                .stream()
-                                .map(contratos -> DadosPropostaResponse.ContratoResponse
-                                        .builder()
-                                        .numeroContrato(contratos.getNumeroContrato())
-                                        .numeroParcelas(contratos.getNumeroParcelas())
-                                        .valorContrato(contratos.getValorContrato())
-                                        .parcelas(
-                                                Optional.ofNullable(contratos.getValorParcelas())
-                                                        .filter(list -> !list.isEmpty())
-                                                        .orElseThrow(() -> new DocumentoConteudoEmptyException(""))
-                                                        .stream()
-                                                        .map(parcelas -> DadosPropostaResponse.ContratoResponse.ParcelaResponse
-                                                                .builder()
-                                                                .primeiraParcela(parcelas.getPrimeiraParcela())
-                                                                .segundaParcela(parcelas.getSegundaParcela())
-                                                                .terceiraParcela(parcelas.getTerceiraParcela())
-                                                                .build()
-                                                        ).collect(Collectors.toList()))
-                                        .build()
-                                ).collect(Collectors.toList()))
+                .contratos(conteudoContrato.stream().map(contratos -> DadosPropostaResponse.ContratoResponse
+                        .builder()
+                        .numeroContrato(contratos.getNumeroContrato())
+                        .numeroParcelas(contratos.getNumeroParcelas())
+                        .valorContrato(contratos.getValorContrato())
+                        .parcelas(
+                                Optional.ofNullable(contratos.getValorParcelas())
+                                        .filter(list -> !list.isEmpty())
+                                        .orElseThrow(() -> new DocumentoConteudoEmptyException(""))
+                                        .stream()
+                                        .map(parcelas -> DadosPropostaResponse.ContratoResponse.ParcelaResponse
+                                                .builder()
+                                                .primeiraParcela(parcelas.getPrimeiraParcela())
+                                                .segundaParcela(parcelas.getSegundaParcela())
+                                                .terceiraParcela(parcelas.getTerceiraParcela())
+                                                .build()
+                                        ).collect(Collectors.toList()))
+                        .build()
+                ).collect(Collectors.toList()))
                 .build();
     }
 }

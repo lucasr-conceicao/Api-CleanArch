@@ -25,36 +25,34 @@ public class RecuperarDadosPropostaImpl implements IRecuperarDadosProposta {
 
     // Todo: Criar as exceptions corretas
     private RecuperarDadosPropostaResponse convertResponse(DadosPropostaResponse response) {
+        var conteudoDocumento = Optional.ofNullable(response.getContratos())
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() -> new DocumentoConteudoEmptyException(""));
         return RecuperarDadosPropostaResponse
                 .builder()
                 .numeroProposta(response.getNumeroProposta())
                 .valorParcela(response.getValorParcela())
                 .taxaMes(response.getTaxaMes())
                 .valorContrato(response.getValorContrato())
-                .contratos(
-                        Optional.ofNullable(response.getContratos())
-                                .filter(list -> !list.isEmpty())
-                                .orElseThrow(() -> new DocumentoConteudoEmptyException(""))
-                                .stream()
-                                .map(contrato -> RecuperarDadosPropostaResponse.Contrato
-                                        .builder()
-                                        .numeroContrato(contrato.getNumeroContrato())
-                                        .numeroParcelas(contrato.getNumeroParcelas())
-                                        .valorContrato(contrato.getValorContrato())
-                                        .parcelas(
-                                                Optional.ofNullable(contrato.getParcelas())
-                                                        .filter(list -> !list.isEmpty())
-                                                        .orElseThrow(() -> new DocumentoConteudoEmptyException(""))
-                                                        .stream()
-                                                        .map(parcelas -> RecuperarDadosPropostaResponse.Contrato.Parcela
-                                                                .builder()
-                                                                .primeiraParcela(parcelas.getPrimeiraParcela())
-                                                                .segundaParcela(parcelas.getSegundaParcela())
-                                                                .terceiraParcela(parcelas.getTerceiraParcela())
-                                                                .build()
-                                                        ).collect(Collectors.toList()))
-                                        .build()
-                                ).collect(Collectors.toList()))
+                .contratos(conteudoDocumento.stream().map(contrato -> RecuperarDadosPropostaResponse.Contrato
+                        .builder()
+                        .numeroContrato(contrato.getNumeroContrato())
+                        .numeroParcelas(contrato.getNumeroParcelas())
+                        .valorContrato(contrato.getValorContrato())
+                        .parcelas(
+                                Optional.ofNullable(contrato.getParcelas())
+                                        .filter(list -> !list.isEmpty())
+                                        .orElseThrow(() -> new DocumentoConteudoEmptyException(""))
+                                        .stream()
+                                        .map(parcelas -> RecuperarDadosPropostaResponse.Contrato.Parcela
+                                                .builder()
+                                                .primeiraParcela(parcelas.getPrimeiraParcela())
+                                                .segundaParcela(parcelas.getSegundaParcela())
+                                                .terceiraParcela(parcelas.getTerceiraParcela())
+                                                .build()
+                                        ).collect(Collectors.toList()))
+                        .build()
+                ).collect(Collectors.toList()))
                 .build();
     }
 }

@@ -20,21 +20,21 @@ public class DadosClienteImpl implements IDadosCliente {
     @Override
     public DadosClienteResponse getDadosCliente() {
         var dadosClienteResponse = getDados();
-        var response = convertResponse(dadosClienteResponse);
-        return Optional.ofNullable(response).orElseThrow(() -> new DadosClienteException(CLIENTE_NULL));
+        return convertResponse(dadosClienteResponse);
     }
 
     private ClienteDadosResponse getDados() {
-        var dataResponse = webClient
+        var response = webClient
                 .get()
                 .accept(MediaType.ALL)
                 .retrieve()
                 .bodyToMono(ClienteDadosResponse.class)
                 .block();
-        return dataResponse;
+        return response;
     }
 
     private DadosClienteResponse convertResponse(ClienteDadosResponse convert) {
+        Optional.ofNullable(convert).orElseThrow(() -> new DadosClienteException(CLIENTE_NULL));
         return DadosClienteResponse
                 .builder()
                 .data(DadosClienteResponse.DadosCliente

@@ -19,38 +19,35 @@ public class ConteudoDocumentoImpl implements IConteudoDocumento {
 
     @Override
     public ConteudoDocumentoResponse getConteudo() {
-        var conteudoResponse = getDocumentoConteudo();
-        var response = convertResponse(conteudoResponse);
-        return response;
+        var documentoConteudoResponse = getDocumentoConteudo();
+        var conteudoResponse = convertResponse(documentoConteudoResponse);
+        return conteudoResponse;
     }
 
     private DocumentoConteudoResponse getDocumentoConteudo() {
-        var contentResponse = webClient
+        var response = webClient
                 .get()
                 .accept(APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(DocumentoConteudoResponse.class)
                 .block();
-        return contentResponse;
+        return response;
     }
 
-    /** Todo: Ajustar exception */
     private ConteudoDocumentoResponse convertResponse(DocumentoConteudoResponse convert) {
+        var conteudo = Optional.ofNullable(convert.getData().getDocumentos())
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() -> new DocumentoConteudoEmptyException("Exception caso venha NULL"));
         return ConteudoDocumentoResponse
                 .builder()
                 .propostaId(convert.getData().getPropostaId())
                 .clienteId(convert.getData().getClienteId())
-                .conteudo(
-                        Optional.ofNullable(convert.getData().getDocumentos())
-                                .filter(list -> !list.isEmpty())
-                                .orElseThrow(() -> new DocumentoConteudoEmptyException("Exception caso venha NULL"))
-                                .stream()
-                                .map(conteudo -> ConteudoDocumentoResponse.ConteudoDocumentoListResponse
-                                        .builder()
-                                        .documentoId(conteudo.getDocumentoId())
-                                        .descricaoDocumento(conteudo.getDescricaoDocumento())
-                                        .build()
-                                ).collect(Collectors.toList()))
+                .conteudo(conteudo.stream().map(documento -> ConteudoDocumentoResponse.ConteudoDocumentoListResponse
+                        .builder()
+                        .documentoId(documento.getDocumentoId())
+                        .descricaoDocumento(documento.getDescricaoDocumento())
+                        .build()
+                ).collect(Collectors.toList()))
                 .build();
     }
 }
